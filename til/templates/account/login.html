@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% block title %}
+{% trans "Sign In" %}
+{% endblock title %}
+
+{% block content %}
+<section class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="max-w-md w-full bg-white rounded p-6 space-y-4">
+        <div class="mb-4">
+            <p class="text-gray-600">{% trans "Sign In" %}</p>
+            <h2 class="text-xl font-bold">{% trans "Join our community" %}</h2>
+        </div>
+        <form method="post" action="{% url 'account_login' %}" class="space-y-4">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div>
+                {{ form.login }}
+
+                {% for error in form.login.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.password }}
+
+                {% for error in form.password.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div class="flex items-center justify-end">
+                <div>
+                    <a href="{% url 'account_reset_password' %}" class="text-sm text-violet-600 hover:underline">
+                        {% trans "Forgot password?" %}
+                    </a>
+                </div>
+            </div>
+            <div>
+                <button type="submit"
+                    class="w-full py-4 bg-violet-600 hover:bg-violet-700 rounded text-sm font-bold text-gray-50 transition duration-200">
+                    {% trans "Sign In" %}
+                </button>
+            </div>
+        </form>
+        <p class="text-center text-sm">
+            {% trans "Don't have an account?" %} <a href="{% url 'account_signup' %}"
+                class="text-violet-600 hover:underline">{% trans "Sign up" %}</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

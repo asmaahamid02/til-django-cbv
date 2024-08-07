@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %} Update Profile {% endblock %}
+
+{% block body %}
+<div class="w-full rounded p-6 space-y-4">
+    <div class="mb-8">
+        <h1 class="text-gray-600 text-3xl md:text-5xl">Edit Profile</h1>
+    </div>
+    <div class="flex justify-end items-center gap-2 text-violet-600 text-sm font-bold">
+        <a href="{% url 'account_change_password' %}" class=" hover:text-violet-700 hover:underline">Change Password</a>
+        |
+        <a href="{% url 'profiles:detail' user.username %}" class="hover:text-violet-700 hover:underline">View
+            Profile</a>
+    </div>
+
+    {% if form.errors %}
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <div id="form_errors">
+            {% for key, value in form.errors.items %}
+            <strong>{{ value }}</strong>
+            {% endfor %}
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    <div class="flex justify-center items-center flex-col gap-4">
+        {% thumbnail user.profile.image "160x160" crop="center" as im %}
+        <img src="{{ im.url}}" alt="{{ user.username }}"
+            class="w-40 h-40 border-solid border-gray-200 border-2 rounded-full object-cover" id="image-preview">
+        {% endthumbnail %}
+        <p class="text-lg">{{ user.username }}</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-4" id="profile-form"
+        data-url="{% url 'profiles:edit' user.username %}">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+
+        <div>
+            {{ field}}
+
+            {% for error in field.errors %}
+            <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        {% endfor %}
+
+        <div class="flex gap-4">
+            <button type="submit"
+                class="w-full py-4 bg-violet-600 hover:bg-violet-700 rounded text-sm font-bold text-gray-50 transition duration-200">
+                Update Profile
+            </button>
+            <button type="reset"
+                class="w-full py-4 bg-gray-200 hover:bg-gray-300 rounded text-sm font-bold text-gray-600 transition duration-200">
+                Reset
+            </button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
