@@ -11,6 +11,7 @@ It is built using Django and Django CBV (Class Based Views).
 4. Allauth
 5. Tailwind CSS
 6. Sorl-thumbnail
+7. Class Based Views
 
 ## Demo
 
@@ -21,7 +22,7 @@ It is built using Django and Django CBV (Class Based Views).
 1. Clone the repository
 
    ```bash
-   git clone
+   git clone https://github.com/asmaahamid02/til-django-cbv.git
    ```
 
 2. Create virtual environment (optional)
