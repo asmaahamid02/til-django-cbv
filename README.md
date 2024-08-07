@@ -12,6 +12,7 @@ It is built using Django and Django CBV (Class Based Views).
 5. Tailwind CSS
 6. Sorl-thumbnail
 7. Class Based Views
+8. JQuery and Ajax
 
 ## Demo
 
